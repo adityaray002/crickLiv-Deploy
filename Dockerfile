@@ -7,6 +7,6 @@ RUN mvn clean package -DskipTests
 # Stage 2: Run the application
 FROM openjdk:17.0.1-jdk-slim
 WORKDIR /app
-COPY --from=build /app/target/CrickInformer-0.0.1-SNAPSHOT.jar CrickInformer.jar
+COPY --from=build /app/target/CrickInformerBackend-0.0.1-SNAPSHOT.jar CrickInformerBackend.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "CrickInformer.jar"]
+ENTRYPOINT ["java", "-jar", "CrickInformerBackend.jar"]
