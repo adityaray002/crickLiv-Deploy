@@ -39,7 +39,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.crick.apis.Entities.User;
+import com.crick.apis.Entities.Users;
 import com.crick.apis.Repositories.UserRepo;
 
 @Service

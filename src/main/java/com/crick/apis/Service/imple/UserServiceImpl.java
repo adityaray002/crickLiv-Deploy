@@ -2,7 +2,8 @@
 package com.crick.apis.Service.imple;
 
 import com.crick.apis.Entities.FeaturedMatch;
-import com.crick.apis.Entities.User;
+
+import com.crick.apis.Entities.Users;
 import com.crick.apis.Repositories.UserRepo;
 import com.crick.apis.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,35 +26,35 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public User signup(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepo.save(user);
+    public Users signup(Users users) {
+        users.setPassword(passwordEncoder.encode(users.getPassword()));
+        return userRepo.save(users);
     }
 
     @Override
     public List<FeaturedMatch> Bookmark(FeaturedMatch featuredMatch, String email) {
-        User user = userRepo.findByEmail(email).orElse(null);
-        if (user != null) {
-            List<FeaturedMatch> allBookmarks = user.getBookmark();
+        Users users = userRepo.findByEmail(email).orElse(null);
+        if (users != null) {
+            List<FeaturedMatch> allBookmarks = users.getBookmark();
             if (allBookmarks == null) {
                 allBookmarks = new ArrayList<>();
             }
             allBookmarks.add(featuredMatch);
-            user.setBookmark(allBookmarks);
-            userRepo.save(user);
+            users.setBookmark(allBookmarks);
+            userRepo.save(users);
             return allBookmarks;
         }
         return new ArrayList<>();
     }
 
 
-    public List<User> getUser() {
+    public List<Users> getUser() {
         return userRepo.findAll();
     }
 
     @Override
     public List<FeaturedMatch> getAllBookmark(String email) {
-        Optional<User> userOpt = userRepo.findByEmail(email);
+        Optional<Users> userOpt = userRepo.findByEmail(email);
         if (userOpt.isPresent()) {
             return userOpt.get().getBookmark();
         }
@@ -80,16 +81,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deleteBookmarkById(FeaturedMatch featuredMatch, String email) {
-        User user = userRepo.findByEmail(email).orElse(null);
-        if (user != null) {
-            List<FeaturedMatch> bookmarkedList = user.getBookmark();
+        Users users = userRepo.findByEmail(email).orElse(null);
+        if (users != null) {
+            List<FeaturedMatch> bookmarkedList = users.getBookmark();
             Iterator<FeaturedMatch> iterator = bookmarkedList.iterator();
             while (iterator.hasNext()) {
                 FeaturedMatch match = iterator.next();
                 if (match.equals(featuredMatch)) {
                     iterator.remove();
-                    user.setBookmark(bookmarkedList);
-                    userRepo.save(user);
+                    users.setBookmark(bookmarkedList);
+                    userRepo.save(users);
                     return "success";
                 }
             }
@@ -99,13 +100,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String clearBookmark(String email) {
-        User user = userRepo.findByEmail(email).orElse(null);
-        if(user!=null){
-            List<FeaturedMatch> list = user.getBookmark();
+        Users users = userRepo.findByEmail(email).orElse(null);
+        if(users!=null){
+            List<FeaturedMatch> list = users.getBookmark();
             list.clear();
-            user.setBookmark(list);
+            users.setBookmark(list);
 
-            userRepo.save(user);
+            userRepo.save(users);
             return "Success";
         }
         return "failure";

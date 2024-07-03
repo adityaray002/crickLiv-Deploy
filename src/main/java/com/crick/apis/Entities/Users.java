@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class User implements UserDetails {
+public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -90,7 +90,7 @@ public class User implements UserDetails {
 
 
 
-    public User(Long userId, String userName, String password,String email,List<FeaturedMatch> bookmark) {
+    public Users(Long userId, String userName, String password,String email,List<FeaturedMatch> bookmark) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
@@ -98,6 +98,6 @@ public class User implements UserDetails {
         this.bookmark=bookmark;
     }
 
-    public User() {
+    public Users() {
     }
 }

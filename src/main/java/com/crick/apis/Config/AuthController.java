@@ -2,7 +2,7 @@ package com.crick.apis.Config;
 
 import com.crick.apis.Entities.JwtRequest;
 import com.crick.apis.Entities.JwtResponse;
-import com.crick.apis.Entities.User;
+import com.crick.apis.Entities.Users;
 import com.crick.apis.Service.imple.UserServiceImpl;
 import com.crick.apis.security.JwtHelper;
 import org.slf4j.Logger;
@@ -70,7 +70,7 @@ public class AuthController {
     }
 
     @PostMapping("/sign-up")
-    public User signup(@RequestBody User user){
-         return userService.signup(user);
+    public Users signup(@RequestBody Users users){
+         return userService.signup(users);
     }
 }

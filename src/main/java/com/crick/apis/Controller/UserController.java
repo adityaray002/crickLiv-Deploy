@@ -1,7 +1,7 @@
 package com.crick.apis.Controller;
 
 import com.crick.apis.Entities.FeaturedMatch;
-import com.crick.apis.Entities.User;
+import com.crick.apis.Entities.Users;
 import com.crick.apis.Service.imple.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

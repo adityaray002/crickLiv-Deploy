@@ -59,7 +59,7 @@
 package com.crick.apis.Service.imple;
 
 import com.crick.apis.Entities.FeaturedMatch;
-import com.crick.apis.Entities.User;
+import com.crick.apis.Entities.Users;
 import com.crick.apis.Service.FeaturedMatchService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
