@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MatchServiceImpl implements MatchService {
@@ -49,6 +50,7 @@ public class MatchServiceImpl implements MatchService {
                 String matchLink = match.select("a.cb-lv-scrs-well.cb-lv-scrs-well-live").attr("href").toString();
 
                 Match match1 = new Match();
+                match1.setMatchId((long)(matches.size()+1));
                 match1.setTeamHeading(teamsHeading);
                 match1.setMatchNumberVenue(matchNumberVenue);
                 match1.setBattingTeam(battingTeam);
@@ -66,8 +68,11 @@ public class MatchServiceImpl implements MatchService {
 //                update the match in database
 
 
-                updateMatch(match1);
+//                updateMatch(match1);
             }
+
+
+            this.matchRepo.saveAll(findDifferenceByMatchLink(this.matchRepo.findAll(), matches));
 
         }catch (IOException e){
             e.printStackTrace();
@@ -75,8 +80,21 @@ public class MatchServiceImpl implements MatchService {
         return matches;
     }
 
+    // Method to find the difference between two lists based on matchLink
+    public static List<Match> findDifferenceByMatchLink(List<Match> list1, List<Match> list2) {
+        // Create a set of matchLinks from the second list
+        List<String> matchLinksInList2 = list2.stream()
+                .map(Match::getMatchLink)
+                .collect(Collectors.toList());
+
+        // Filter out the matches in list1 whose matchLink is not in the second list
+        return list1.stream()
+                .filter(match -> !matchLinksInList2.contains(match.getMatchLink()))
+                .collect(Collectors.toList());
+    }
+
     private void updateMatch(Match match1) {
-        Match match = this.matchRepo.findByTeamHeading(match1.getTeamHeading()).orElse(null);
+        Match match = this.matchRepo.findById(match1.getMatchId()).orElse(null);
         if (match == null) {
             this.matchRepo.save(match1);
         } else {

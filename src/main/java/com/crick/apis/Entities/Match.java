@@ -11,7 +11,7 @@ import java.util.Date;
 public class Match {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long matchId;
     private String teamHeading;
     private String matchNumberVenue;

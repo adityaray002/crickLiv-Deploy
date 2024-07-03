@@ -32,7 +32,10 @@ public class SecurityConfig{
 
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests().
-                requestMatchers("/match/**").authenticated().requestMatchers("/auth/login").permitAll().requestMatchers("/auth/sign-up").permitAll()
+                requestMatchers("/match/**").authenticated()
+                .requestMatchers("/auth/login").permitAll()
+                .requestMatchers("/match/live").permitAll()
+                .requestMatchers("/auth/sign-up").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().exceptionHandling(ex -> ex.authenticationEntryPoint(point))
