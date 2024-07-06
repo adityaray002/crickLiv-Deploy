@@ -22,8 +22,17 @@ public class FeaturedMatch {
     private String Team1;
     private String imageUrl1;
     private String imageUrl2;
-    private String Team2;
 
+    public Boolean getBookmarked() {
+        return isBookmarked;
+    }
+
+    public void setBookmarked(Boolean bookmarked) {
+        isBookmarked = bookmarked;
+    }
+
+    private String Team2;
+    private Boolean isBookmarked=false;
 
     public String getImageUrl2() {
         return imageUrl2;
@@ -109,7 +118,7 @@ public class FeaturedMatch {
     }
 
 
-    public FeaturedMatch(Long featuredMatchId, String matchTime, String matchVenue, String team1, String team2, String Date,String seriesName,String imageUrl1,String imageUrl2) {
+    public FeaturedMatch(Long featuredMatchId, String matchTime, String matchVenue, String team1, String team2, String Date,String seriesName,String imageUrl1,String imageUrl2,Boolean isBookmarked) {
         this.featuredMatchId = featuredMatchId;
         this.matchTime = matchTime;
         this.matchVenue = matchVenue;
@@ -119,7 +128,7 @@ public class FeaturedMatch {
         this.seriesName = seriesName;
         this.imageUrl1=imageUrl1;
         this.imageUrl2 = imageUrl2;
-
+        this.isBookmarked=isBookmarked;
     }
 
     public FeaturedMatch() {

@@ -26,9 +26,14 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Users signup(Users users) {
+    public String signup(Users users) {
+        if(userRepo.findByEmail(users.getEmail()).isPresent()){
+            return "user already exist";
+
+        }
         users.setPassword(passwordEncoder.encode(users.getPassword()));
-        return userRepo.save(users);
+         userRepo.save(users);
+         return "Registered successfully";
     }
 
     @Override
@@ -39,6 +44,7 @@ public class UserServiceImpl implements UserService {
             if (allBookmarks == null) {
                 allBookmarks = new ArrayList<>();
             }
+            featuredMatch.setBookmarked(true);
             allBookmarks.add(featuredMatch);
             users.setBookmark(allBookmarks);
             userRepo.save(users);
@@ -88,6 +94,7 @@ public class UserServiceImpl implements UserService {
             while (iterator.hasNext()) {
                 FeaturedMatch match = iterator.next();
                 if (match.equals(featuredMatch)) {
+                    featuredMatch.setBookmarked(false);
                     iterator.remove();
                     users.setBookmark(bookmarkedList);
                     userRepo.save(users);

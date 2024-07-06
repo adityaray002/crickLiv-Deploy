@@ -70,7 +70,7 @@ public class AuthController {
     }
 
     @PostMapping("/sign-up")
-    public Users signup(@RequestBody Users users){
+    public String signup(@RequestBody Users users){
          return userService.signup(users);
     }
 }

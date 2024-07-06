@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface UserService {
-    Users signup(Users user);
+    String signup(Users user);
     public List<FeaturedMatch> Bookmark(FeaturedMatch featuredMatch,String email);
     public List<FeaturedMatch> getAllBookmark(String email);
     public String deleteBookmarkById(FeaturedMatch featuredMatch,String email);
