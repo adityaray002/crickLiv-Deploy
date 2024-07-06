@@ -61,6 +61,8 @@ package com.crick.apis.Service.imple;
 import com.crick.apis.Entities.FeaturedMatch;
 import com.crick.apis.Entities.Users;
 import com.crick.apis.Service.FeaturedMatchService;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -71,10 +73,11 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class FeaturedMatchServiceImpl implements FeaturedMatchService {
-
+    private final AtomicLong counter = new AtomicLong();
 
 
     @Override
@@ -114,7 +117,7 @@ public class FeaturedMatchServiceImpl implements FeaturedMatchService {
                     featuredMatch1.setSeriesName(seriesName);
                     featuredMatch1.setImageUrl1(imageUrl1);
                     featuredMatch1.setImageUrl2(imageUrl2);
-
+                    featuredMatch1.setFeaturedMatchId(counter.incrementAndGet());
                     matches.add(featuredMatch1);
                 }
             }
